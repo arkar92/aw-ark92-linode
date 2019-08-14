@@ -11,6 +11,46 @@ sudo tasksel install lamp-server
 
 စစ် လို့ အဆင်ပြေရင် နောက်တစ်ဆင့် က php install လုပ်ရန် 
 
+sudo apt update
+sudo apt upgrade
+
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+sudo apt update
+
+sudo apt install php7.3
+
+php -v
+
+sudo apt install php7.3-common php7.3-mysql php7.3-xml php7.3-xmlrpc php7.3-curl php7.3-gd php7.3-imagick php7.3-cli php7.3-dev php7.3-imap php7.3-mbstring php7.3-opcache php7.3-soap php7.3-zip php7.3-intl -y
+
+php -v
+
+php 7.3 တင် ပြီးပြီ ဆိုရင် laravel install လုပ်ရန်
+
+sudo apt install curl git unzip
+
+ပြီးရင် composer install လုပ်ရန် 
+
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+sudo chmod +x /usr/local/bin/composer
+
+ပြီးရင် cd /var/www/html ထဲ သွားပြီး laravel ကို composer ကနေ တဆင့် install လုပ်ရန်
+
+sudo composer create-project laravel/laravel laravel --prefer-dist
+
+ပြီးရင် apache server ကို laravel အတွက် config လုပ်ရန်
+
+sudo chgrp -R www-data /var/www/html/laravel
+sudo chmod -R 775 /var/www/html/laravel/storage
+
+ပြီးရင် mysql server ကို laravel နဲ့ ချိတ်လို့ ရအောင် config လုပ်ရန် / database create လုပ်ရန် 
+
+ပြီးရင် .env file ကို example file နဲ့ copy ကူပြီး database info ထည့်ရန် ပြီးရင် key generate လုပ်ရန်
+
+ပြီးရင် web server ip ကို ခေါ်တာနဲ့ laravel site ပေါ်လာရန် virtual host ကို config လုပ်ပေးရန် 
+
 
 
 #3
@@ -54,10 +94,10 @@ sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-availab
         ServerAdmin webmaster@localhost
 
         DocumentRoot /var/www/html/laravel/public
-
-        ErrorLog /var/www/html/$WEBSITE/logs/error.log
-
-        CustomLog /var/www/html/$WEBSITE/logs/access.log combined
+        
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
 
 </VirtualHost>
 
